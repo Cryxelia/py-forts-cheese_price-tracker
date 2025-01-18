@@ -1,16 +1,41 @@
-import requests
-from bs4 import BeautifulSoup
-import selenium
+# import the required libraries
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
-def get_product():
-    response = requests.get('https://www.coop.se/handla/varor/ost')
+# instantiate a Chrome options object
+options = webdriver.ChromeOptions()
 
-    soup = BeautifulSoup(response.text, 'html.parser')
+# set the options to use Chrome in headless mode
+options.add_argument("--headless=new")
 
-    titles = soup.find_all('span', class_="wqjVwCAg X7I7xYL7")
+# initialize an instance of the chrome driver (browser) in headless mode
+driver = webdriver.Chrome(
+    options=options,
+)
 
-    for title in titles:
-        print(title)
+# visit your target site
+driver.get("https://teijasskateshop.com/konstakningsskridskor/edea/")
 
-if __name__=="__main__":
-    get_product()
+# extract all the product containers
+products = driver.find_elements(By.CSS_SELECTOR, ".l-inner")
+
+# declare an empty list to collect the extracted data
+extracted_products = []
+
+# loop through the product containers
+for product in products:
+
+    # extract the elements into a dictionary using the CSS selector
+    product_data = {
+        "name": product.find_element(By.CSS_SELECTOR, ".product-item__heading").text,
+        "price": product.find_element(By.CSS_SELECTOR, ".price").text,
+    }
+
+    # append the extracted data to the extracted_product list
+    extracted_products.append(product_data)
+
+# print the extracted data
+print(extracted_products)
+
+# release the resources allocated by Selenium and shut down the browser
+driver.quit()
