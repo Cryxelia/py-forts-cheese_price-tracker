@@ -4,3 +4,8 @@ beautifulsoup4
 requests
 numpy
 selenium
+flask-login
+flask_sqlalchemy
+pytest
+sqlalchemy
+matplotlib

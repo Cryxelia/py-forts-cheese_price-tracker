@@ -1,0 +1,1 @@
+PATH_TO_CHROMEDRIVER = r"C:\Users\Freja Olsson\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe"

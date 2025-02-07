@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price statistics for {{ cheese_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            background-color: #3498db;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 40px;
+            color: #333;
+        }
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 60%;
+            margin-bottom: 40px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        img {
+            width: 80%;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a {
+            display: block;
+            margin: 20px auto;
+            text-decoration: none;
+            color: white;
+            background-color: #3498db;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            width: fit-content;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ cheese_name }} Price History</h1>
+    {{ table|safe }}
+
+    <h2>Price Statistics</h2>
+    <img src="data:image/png;base64,{{ graph_url }}" alt="Price Graph">
+
+    <a href="{{ url_for('main.all_cheese_login') }}">Back to All Cheeses</a>
+</body>
+</html>
