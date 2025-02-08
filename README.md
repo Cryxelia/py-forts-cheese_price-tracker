@@ -3,7 +3,7 @@
 ## Description
 
 ### what you do with the app
-In this app you can compare cheese prices from Arla. You can also folow the price and see if the price has changed over a night. If you sign up you have alot more benifits because you can see the price history of a specific product and you can save your favourites!
+In this app you can compare cheese prices from Arla on coop's website. You can also folow the price and see if the price has changed over a night. If you sign up you have alot more benifits because you can see the price history of a specific product and you can save your favourites!
 
 ### what i used for this project
 For this project i used *Falsk* for the app (webutveckling) and *selenium* combined with *beautifulsoup* for webscraping to collect the cheese data because coop's website uses jvascritp to load their site (webscraping). 
