@@ -8,39 +8,52 @@ from bs4 import BeautifulSoup
 import time
 from settings import PATH_TO_CHROMEDRIVER 
 
-
 #setup for the chromedriver and settings for chrome 
-chrome_options = Options()
-chrome_options.add_argument("--headless") 
-chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument(
+def setup_driver(url):
+    chrome_options = Options()
+    chrome_options.add_argument("--headless") 
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument(
     "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.265 Safari/537.36"
-)
+    )
 
-service = Service(PATH_TO_CHROMEDRIVER) 
+    service = Service(PATH_TO_CHROMEDRIVER) 
 
-driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver.get(url)
+
+    return driver
 
 url = "https://www.coop.se/handla/varor/ost/?brand=Arla%C2%AE"
-driver.get(url)
 
-WebDriverWait(driver, 30).until(
-    EC.presence_of_element_located((By.CLASS_NAME, "ProductGrid"))
-)
+def scrape_coop_data(url):
 
-time.sleep(5)
+    try:
+        driver = setup_driver(url)
 
-html = driver.page_source
-soup = BeautifulSoup(html, "html.parser")
+        WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "ProductGrid")))
 
-cheese_section = soup.find_all('div', class_='ProductTeaser-content')
+        time.sleep(5)
 
-textfile = open('text.txt', 'w', encoding="utf-8")
+        html = driver.page_source
+        soup = BeautifulSoup(html, "html.parser")
 
-for i, ost in enumerate(cheese_section, start=1): 
-    o = f"{i}. {ost}\n"
-    textfile.write(o)
+        cheese_section = soup.find_all('div', class_='ProductTeaser-content')
 
-textfile.close()
+        textfile = open('text.txt', 'w', encoding="utf-8")
 
-driver.quit()
+        for i, ost in enumerate(cheese_section, start=1): 
+            o = f"{i}. {ost}\n"
+            textfile.write(o)
+
+        textfile.close()
+
+        driver.quit()
+
+        print("scraping succeesful!")
+    except Exception as e:
+        print(f"Fel vid web scraping: {e}")
+
+if __name__=="__main__":
+    scrape_coop_data(url)
