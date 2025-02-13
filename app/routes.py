@@ -47,9 +47,23 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
+        if len(password) < 8:
+            flash('Password must be at least 8 characters long.')
+            return redirect(url_for('main.register'))
+        if not any(c.islower() for c in password):
+            flash('Password must include at least one lowercase letter.')
+            return redirect(url_for('main.register'))
+        if not any(c.isupper() for c in password):
+            flash('Password must include at least one uppercase letter.')
+            return redirect(url_for('main.register'))
+        if not any(c.isdigit() for c in password):
+            flash('Password must include at least one number.')
+            return redirect(url_for('main.register'))
         if session.query(User).filter_by(username=username).first():
             flash('Username already exists')
             return redirect(url_for('main.register'))
+        
         hashed_password = generate_password_hash(password,method='scrypt', salt_length=16)
         new_user = User(username=username, password=hashed_password)
         session.add(new_user)

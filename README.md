@@ -17,10 +17,10 @@ The hardest parts with my project was that it was so many new moments for me so 
 1. install chrome if you don't have it
 2. install [chromedriver](https://developer.chrome.com/docs/chromedriver/downloads)
 4. extract the zip file to a folder
-5. replace the value of `PATH_TO_CHROMEDRIVER` in scraper/settings.py to your folder pathfor the chromedriver.exe file
+5. replace the value of `PATH_TO_CHROMEDRIVER` in scraper/settings.py to your folder path for the chromedriver.exe file
 6. install packages with `pip install -r requirements.txt` (if you want create a venv first)
 7. you can run the scraper manually with `py scraper/web_coop.py` or use the scheduler if you can/want
-8. create the database with `py init_cheese_data.py`
+8. create the database or add the scraped data to the database with `py init_cheese_data.py`
 9. open app with `py run.py`
 
 
